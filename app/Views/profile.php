@@ -1,3 +1,21 @@
+<?php
+// Definisikan array kelas dengan nama kelas sesuai nomor kelas
+$kelasArray = [
+    1 => 'AB',
+    2 => 'BC',
+    3 => 'CD',
+    4 => 'DA'
+    // Tambahkan kelas lainnya sesuai kebutuhan
+];
+$kelas_id =$kelas;
+// Periksa apakah nomor kelas ada dalam array
+if (isset($kelasArray[$kelas_id])) {
+    $namaKelas = $kelasArray[$kelas_id];
+} else {
+    $namaKelas = 'Kelas tidak diketahui';
+}
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -25,7 +43,7 @@
                                 </div>
                                 <ul class="list-unstyled mb-1-9">
                                     <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">NPM:</span> <?=$npm?> </li>
-                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Kelas:</span><?=$kelas?></li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Kelas:</span><?=$namaKelas?></li>
                                     <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Email:</span><?=$email?></li>
                                     <li class="display-28"><span class="display-26 text-secondary me-2 font-weight-600">Phone:</span><?=$no_hp?></li>
                                 </ul>
