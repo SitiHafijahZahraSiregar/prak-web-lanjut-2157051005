@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title><?= $title ?></title>
     <link href="<?=base_url("assets/css/bootstrap.min.css")?>" rel="stylesheet" >
   </head>
   <body>
@@ -12,23 +12,51 @@
   <div class="form-group">
     <br>
     <label for="nama">Nama</label>
-    <input type="text" class="form-control" name="nama" placeholder="Masukan Nama">
+    <input type="text" name="nama" class="form-control <?php if (session()->getFlashdata('error_nama')) echo 'is-invalid'; ?>" value="<?= old('nama'); ?>">
+            <?php if (session()->getFlashdata('error_nama')) : ?>
+              <div class="invalid-feedback">
+                <?= session()->getFlashdata('error_nama') ?>
+              </div>
+            <?php endif; ?>
   </div>
   <div class="form-group">
     <label for="npm">NPM</label>
-    <input type="text" class="form-control" name="npm" placeholder="Masukan NPM">
+    <input type="text" name="npm" class="form-control <?php if (session()->getFlashdata('error_npm')) echo 'is-invalid'; ?>" value="<?= old('npm'); ?>">
+            <?php if (session()->getFlashdata('error_npm')) : ?>
+              <div class="invalid-feedback">
+                <?= session()->getFlashdata('error_npm') ?>
+              </div>
+            <?php endif; ?>
   </div>
   <div class="form-group">
     <label for="kelas">Kelas</label>
-    <input type="text" class="form-control" name="kelas" placeholder="Masukan Kelas">
+    <select class="form-select" name="kelas" aria-label="Default select example">
+    <?php
+    foreach ($kelas as $item){
+      ?>
+  <option value="<?= $item['id']?>"><?=$item['nama_kelas']?></option>
+  <?php
+  }
+  ?>
+  </select>
   </div>
   <div class="form-group">
     <label for="email">Email</label>
-    <input type="email" class="form-control" name="email" placeholder="Masukan email">
+    <input type="text" name="email" class="form-control <?php if (session()->getFlashdata('error_email')) echo 'is-invalid'; ?>" value="<?= old('email'); ?>">
+            <?php if (session()->getFlashdata('error_email')) : ?>
+              <div class="invalid-feedback">
+                <?= session()->getFlashdata('error_email') ?>
+              </div>
+            <?php endif; ?>
   </div>
   <div class="form-group">
     <label for="no_hp">No HP</label>
-    <input type="int" class="form-control" name="no_hp" placeholder="Masukan No HP">
+    <input type="int" name="no_hp" class="form-control <?php if (session()->getFlashdata('error_no_hp')) echo 'is-invalid'; ?>" value="<?= old('no_hp'); ?>">
+            <?php if (session()->getFlashdata('error_no_hp')) : ?>
+              <div class="invalid-feedback">
+                <?= session()->getFlashdata('error_no_hp') ?>
+              </div>
+            <?php endif; ?>
   </div>
   <br>
   <button type="submit" class="btn btn-primary">Submit</button>
