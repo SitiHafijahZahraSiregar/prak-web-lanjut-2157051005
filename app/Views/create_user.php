@@ -1,13 +1,6 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $title ?></title>
-    <link href="<?=base_url("assets/css/bootstrap.min.css")?>" rel="stylesheet" >
-  </head>
-  <body>
-    <div class="container">
+   <?= $this->extend('layouts/app');?>
+   <?= $this->section('content');?>
+   <div class="container">
     <form action="<?=base_url('/user/store')?>" method="POST">
   <div class="form-group">
     <br>
@@ -59,9 +52,7 @@
             <?php endif; ?>
   </div>
   <br>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <a href="/user" class="btn btn-warning">Kembali</a>
+  <button type="submit" class="btn btn-primary">Simpan</button>
 </form>
-    </div>
-    <script src="<?=base_url("assets/js/bootstrap.bundle.min.js")?>" ></script>
-  </body>
-</html>
+<?= $this->endSection() ?>    

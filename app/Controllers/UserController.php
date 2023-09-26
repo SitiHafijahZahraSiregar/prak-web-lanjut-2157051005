@@ -2,13 +2,26 @@
 
 namespace App\Controllers;
 use App\Models\UserModel;
+use App\Models\KelasModel;
 use App\Controllers\BaseController;
 
 class UserController extends BaseController
 {
+    public $userModel;
+    public $kelasModel;
+    public function __construct() 
+    {
+        $this->userModel = new UserModel ();
+        $this->kelasModel = new KelasModel ();
+    }
     public function index()
     {
-        //
+        $data = [
+            'title' => 'List User',
+            'user' => $this->userModel->getUser(),
+        ];
+        
+        return view('list_user',$data);
     }
     public function profile($nama = "",$kelas = "",$npm ="")
     {
@@ -21,25 +34,8 @@ class UserController extends BaseController
     }
     public function create()
     {
-        $kelas = [
-            [
-                'id' => 1,
-                'nama_kelas' => 'AB'
-            ],
-            [
-                'id' => 2,
-                'nama_kelas' => 'BC'
-            ],
-            [
-                'id' => 3,
-                'nama_kelas' => 'CD'
-            ],
-            [
-                'id' => 4,
-                'nama_kelas' => 'DA'
-            ],
-
-        ];
+        
+        $kelas = $this->kelasModel->getkelas();
         $data = [
             'kelas' => $kelas,
             'title' => "Form Tambah User"
@@ -85,8 +81,8 @@ class UserController extends BaseController
             }
             return redirect()->to('/user/create')->withInput();
         }
-        $userModel = new UserModel;
-        $userModel->saveUser([
+        
+        $this->userModel->saveUser([
             'nama' => $this->request->getVar('nama'),
             'npm' => $this->request->getVar('npm'),
             'id_kelas' => $this->request->getVar('kelas'),
@@ -94,14 +90,7 @@ class UserController extends BaseController
             'no_hp' => $this ->request->getVar('no_hp')
 
         ]);
-        $data = [
-            'nama' => $this ->request->getVar('nama'),
-            'npm' => $this ->request->getVar('npm'),
-            'kelas' => $this ->request->getVar('kelas'),
-            'email' => $this ->request->getVar('email'),
-            'no_hp' => $this ->request->getVar('no_hp')
-
-        ];
-        return view('profile', $data);
+       
+        return view('list_user');
     }
 }
