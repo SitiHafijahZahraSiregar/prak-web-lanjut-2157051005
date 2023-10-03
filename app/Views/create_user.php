@@ -1,7 +1,8 @@
    <?= $this->extend('layouts/app');?>
    <?= $this->section('content');?>
+   <h1 class="text-center mb-4">Form Tambah Data Mahasiswa/i</h1>
    <div class="container">
-    <form action="<?=base_url('/user/store')?>" method="POST">
+    <form action="<?=base_url('/user/store')?>" method="POST"  enctype="multipart/form-data">
   <div class="form-group">
     <br>
     <label for="nama">Nama</label>
@@ -50,6 +51,16 @@
                 <?= session()->getFlashdata('error_no_hp') ?>
               </div>
             <?php endif; ?>
+  </div>
+  <div class="form-group">
+    <label for="foto">Foto</label>
+    <input type="file" class="form-control <?php if (session()->getFlashdata('error_foto')) echo 'is-invalid'; ?>"  name="foto" aria-label="Default select example">
+    <?php if (session()->getFlashdata('error_foto')) : ?>
+              <div class="invalid-feedback">
+                <?= session()->getFlashdata('error_foto') ?>
+              </div>
+            <?php endif; ?>
+  </input>
   </div>
   <br>
   <a href="/user" class="btn btn-warning">Kembali</a>

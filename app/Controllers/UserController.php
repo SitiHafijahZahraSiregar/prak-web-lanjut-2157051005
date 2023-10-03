@@ -20,8 +20,18 @@ class UserController extends BaseController
             'title' => 'List User',
             'user' => $this->userModel->getUser(),
         ];
-        
+
         return view('list_user',$data);
+    }
+    public function show($id)   
+    {
+        $user = $this->userModel->getUser($id);
+        $data = [
+            'title' => 'profile user',
+            'user' => $user,
+        ];
+
+        return view('profile',$data);
     }
     public function profile($nama = "",$kelas = "",$npm ="")
     {
@@ -45,6 +55,15 @@ class UserController extends BaseController
     public function store()
     {
         if (!$this->validate([
+            'foto' => [
+                'rules'         => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]',
+
+                'errors'        => [
+                    'uploaded'  => 'Foto harus dipilih.',
+                    'is_image'  => 'Yang anda pilih bukan gambar.',
+                    'mime_in'   => 'Foto harus berekstensi png,jpg,jpeg,gif.'
+                ]
+                ],
             'npm' => [
                 'rules' => 'required|is_unique[user.npm]|min_length[10]',
                 'errors' => [
@@ -60,9 +79,10 @@ class UserController extends BaseController
                 ]
                 ],
             'email' => [
-                'rules' => 'required|valid_email',
+                'rules' => 'required|valid_email|is_unique[user.email]',
                 'errors' => [
                     'required' => '{field} tidak boleh kosong.',
+                    'is_unique' => '{field} sudah terdaftar.',
                     'valid_email' => 'masukkan alamat {field} yang valid.',
                 ]
                 ],
@@ -80,17 +100,28 @@ class UserController extends BaseController
                 session()->setFlashdata('error_' . $field, $error);
             }
             return redirect()->to('/user/create')->withInput();
+
+            
         }
+        $path = 'assets/uplouds/img/';
+            $foto = $this->request->getFile('foto');
+            $name = $foto->getRandomName();
+
+            if ($foto->move($path, $name)) {
+                $foto = base_url($path . $name);
+            }
         
         $this->userModel->saveUser([
             'nama' => $this->request->getVar('nama'),
             'npm' => $this->request->getVar('npm'),
             'id_kelas' => $this->request->getVar('kelas'),
             'email' => $this ->request->getVar('email'),
-            'no_hp' => $this ->request->getVar('no_hp')
+            'no_hp' => $this ->request->getVar('no_hp'),
+            'foto'  => $foto
 
         ]);
        
-        return view('list_user');
+        session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan!');
+        return redirect()->to('/user');
     }
 }
