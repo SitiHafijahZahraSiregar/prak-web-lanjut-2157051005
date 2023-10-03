@@ -1,14 +1,8 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $title ?></title>
-    <link href="<?=base_url("assets/css/bootstrap.min.css")?>" rel="stylesheet" >
-  </head>
-  <body>
-    <div class="container">
-    <form action="<?=base_url('/user/store')?>" method="POST">
+   <?= $this->extend('layouts/app');?>
+   <?= $this->section('content');?>
+   <h1 class="text-center mb-4">Form Tambah Data Mahasiswa/i</h1>
+   <div class="container">
+    <form action="<?=base_url('/user/store')?>" method="POST"  enctype="multipart/form-data">
   <div class="form-group">
     <br>
     <label for="nama">Nama</label>
@@ -58,10 +52,18 @@
               </div>
             <?php endif; ?>
   </div>
+  <div class="form-group">
+    <label for="foto">Foto</label>
+    <input type="file" class="form-control <?php if (session()->getFlashdata('error_foto')) echo 'is-invalid'; ?>"  name="foto" aria-label="Default select example">
+    <?php if (session()->getFlashdata('error_foto')) : ?>
+              <div class="invalid-feedback">
+                <?= session()->getFlashdata('error_foto') ?>
+              </div>
+            <?php endif; ?>
+  </input>
+  </div>
   <br>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <a href="/user" class="btn btn-warning">Kembali</a>
+  <button type="submit" class="btn btn-primary">Simpan</button>
 </form>
-    </div>
-    <script src="<?=base_url("assets/js/bootstrap.bundle.min.js")?>" ></script>
-  </body>
-</html>
+<?= $this->endSection() ?>    
