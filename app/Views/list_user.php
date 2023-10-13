@@ -36,8 +36,11 @@
                         <td><?= $u['email']; ?></td>
                         <td><?= $u['no_hp']; ?></td>
                         <td>
-                            <a href="<?= base_url('user/'. $u['id']); ?>" class="btn btn-success btn-sm mr-2">
+                            <a href="<?= base_url('user/detail/'. $u['id']); ?>" class="btn btn-success btn-sm mr-2">
                                 <i class="fas fa-eye"></i> Detail
+                            </a>
+                            <a href="<?= base_url('user/'. $u['id'] . '/edit'); ?>" class="btn btn-warning btn-sm mr-2">
+                                <i class="fas fa-pencil"></i> Edit
                             </a>
                             <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal<?= $u['npm']; ?>">
                                 <i class="fas fa-trash"></i> Delete
