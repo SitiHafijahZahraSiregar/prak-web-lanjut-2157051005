@@ -35,8 +35,7 @@ class UserController extends BaseController
     }
     
     public function create()
-    {
-        
+    {   
         $kelas = $this->kelasModel->getkelas();
         $data = [
             'kelas' => $kelas,

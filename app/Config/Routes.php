@@ -2,7 +2,7 @@
 
 use CodeIgniter\Router\RouteCollection;
 use App\Controllers\UserController;
-
+use App\Controllers\KelasController;
 /**
  * @var RouteCollection $routes
  */
@@ -20,3 +20,9 @@ $routes->put('/user/(:any)', 'UserController::update/$1');
 $routes->get('/user/(:any)/edit', [UserController::class, 'edit']);
 $routes->put('/user/(:any)', [UserController::class, 'update']);
 $routes->delete('/user/(:any)', [UserController::class, 'destroy']);
+
+
+
+$routes->get('/kelas', 'KelasController::index');
+$routes->get('/kelas/create', 'KelasController::create');
+$routes->post('/kelas/store', 'KelasController::store');
