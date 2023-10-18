@@ -1,6 +1,6 @@
 <?= $this->extend('layouts/app'); ?>
 <?= $this->section('content'); ?>
-<h1 class="text-center mb-4">Data Mahasiswa/i</h1>
+<h1 class="text-center mb-4">Data Kelas</h1>
 <div class="container mt-5">
     <?php if (session()->getFlashdata('pesan')) : ?>
         <div class="alert alert-success alert-dismissible fade show" id="myAlert" role="alert">
@@ -8,44 +8,33 @@
             <strong><?= session()->getFlashdata('pesan'); ?></strong>
         </div>
     <?php endif; ?>
-    <a href="<?= base_url('/user/create'); ?>" class="btn btn-primary mb-3"><i class="fas fa-user-plus mr-2"></i> Create User</a>
+    <a href="<?= base_url('/kelas/create'); ?>" class="btn btn-primary mb-3"><i class="fas fa-user-plus mr-2"></i> Create Kelas</a>
     <div class="table-responsive">
         <table class="table rounded-table">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama</th>
-                    <th>NPM</th>
-                    <th>Kelas</th>
-                    <th>Email</th>
-                    <th>No Hp</th>
+                    <th>Nama Kelas</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <?php $i = 1; ?>
-                <?php foreach ($user as $u) : ?>
+                <?php foreach ($kelas as $k) : ?>
                     <tr>
                         <td><?= $i++; ?></td>
-                        <td><?= $u['nama']; ?></td>
-                        <td><?= $u['npm']; ?></td>
-                        <td><?= $u['nama_kelas']; ?></td>
-                        <td><?= $u['email']; ?></td>
-                        <td><?= $u['no_hp']; ?></td>
+                        <td><?= $k['nama_kelas']; ?></td>
                         <td>
-                            <a href="<?= base_url('user/detail/'. $u['id']); ?>" class="btn btn-success btn-sm mr-2">
-                                <i class="fas fa-eye"></i> Detail
-                            </a>
-                            <a href="<?= base_url('user/'. $u['id'] . '/edit'); ?>" class="btn btn-warning btn-sm mr-2">
+                            <a href="" class="btn btn-warning btn-sm mr-2">
                                 <i class="fas fa-pencil"></i> Edit
                             </a>
-                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal<?= $u['npm']; ?>">
+                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="">
                                 <i class="fas fa-trash"></i> Delete
                             </button>
                         </td>
                     </tr>
                     <!-- Modal for Delete Confirmation -->
-                    <div class="modal fade" id="deleteModal<?= $u['npm']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -59,7 +48,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <a href="/user/delete/<?= $u['npm']; ?>" class="btn btn-danger">Delete</a>
+                                    <a href="" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
                         </div>
