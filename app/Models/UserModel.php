@@ -58,6 +58,10 @@ class UserModel extends Model
     {
         return $this->where('id', $id)->first();
     }
+    public function deleteUser($id)
+    {
+        return $this->delete($id);
+    }
 }
 
 

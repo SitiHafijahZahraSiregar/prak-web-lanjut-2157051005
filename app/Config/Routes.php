@@ -26,3 +26,6 @@ $routes->delete('/user/(:any)', [UserController::class, 'destroy']);
 $routes->get('/kelas', 'KelasController::index');
 $routes->get('/kelas/create', 'KelasController::create');
 $routes->post('/kelas/store', 'KelasController::store');
+$routes->get('/kelas/(:any)/edit', [KelasController::class, 'edit']);
+$routes->put('/kelas/(:any)', [KelasController::class, 'update']);
+$routes->delete('/kelas/(:any)', [KelasController::class, 'destroy']);
