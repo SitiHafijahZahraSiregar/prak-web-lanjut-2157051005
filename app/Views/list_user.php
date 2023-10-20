@@ -3,12 +3,9 @@
 <h1 class="text-center mb-4">Data Mahasiswa/i</h1>
 <div class="container mt-5">
     <?php if (session()->getFlashdata('pesan')) : ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" id="myAlert" role="alert">
             <i class="fas fa-check-circle mr-2"></i>
             <strong><?= session()->getFlashdata('pesan'); ?></strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
         </div>
     <?php endif; ?>
     <a href="<?= base_url('/user/create'); ?>" class="btn btn-primary mb-3"><i class="fas fa-user-plus mr-2"></i> Create User</a>
@@ -36,34 +33,15 @@
                         <td><?= $u['email']; ?></td>
                         <td><?= $u['no_hp']; ?></td>
                         <td>
-                            <a href="<?= base_url('user/'. $u['id']); ?>" class="btn btn-success btn-sm mr-2">
+                            <a href="<?= base_url('user/detail/'. $u['id']); ?>" class="btn btn-success btn-sm mr-2">
                                 <i class="fas fa-eye"></i> Detail
                             </a>
-                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal<?= $u['npm']; ?>">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
+                            <a href="<?= base_url('user/'. $u['id'] . '/edit'); ?>" class="btn btn-warning btn-sm mr-2">
+                                <i class="fas fa-pencil"></i> Edit
+                            </a>
+                            <a href="javascript:void(0);" class="btn btn-danger btn-sm mr-2 delete-button" data-url="<?= base_url('user/' . $u['id']) ?>"><i class="fas fa-trash"></i> Delete</a>
                         </td>
                     </tr>
-                    <!-- Modal for Delete Confirmation -->
-                    <div class="modal fade" id="deleteModal<?= $u['npm']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    Are you sure you want to delete this user?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <a href="/user/delete/<?= $u['npm']; ?>" class="btn btn-danger">Delete</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 <?php endforeach; ?>
             </tbody>
         </table>

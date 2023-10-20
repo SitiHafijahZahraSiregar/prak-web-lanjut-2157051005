@@ -33,24 +33,68 @@ class UserController extends BaseController
 
         return view('profile',$data);
     }
-    public function profile($nama = "",$kelas = "",$npm ="")
-    {
-        $data = [
-            'nama' => $nama,
-            'npm' => $npm,
-            'kelas' => $kelas,
-        ];
-        return view('profile', $data);
-    }
+    
     public function create()
-    {
-        
+    {   
         $kelas = $this->kelasModel->getkelas();
         $data = [
             'kelas' => $kelas,
             'title' => "Form Tambah User"
         ];
         return view('create_user', $data);
+    }
+    public function edit($id)   
+    {
+        $user = $this->userModel->getUser($id);
+        $kelas = $this->kelasModel->getKelas();
+
+        $data = [
+            'title' => 'Edit user',
+            'user'  => $user,
+            'kelas' => $kelas,
+        ];
+
+        return view('edit_user',$data);
+    }
+
+    public function update($id)
+    {
+        $path = 'assets/uploads/img/';
+        $foto = $this->request->getFile('foto');
+    
+        // Periksa apakah ada file foto baru yang diunggah
+        if ($foto->isValid()) {
+            $name = $foto->getRandomName();
+            if ($foto->move($path, $name)) {
+                $foto = base_url($path . $name);
+            }
+        } else {
+            $existingData = $this->userModel->getUserDataById($id); 
+            $foto = $existingData['foto'];
+        }
+    
+        $data = [
+            'nama' => $this->request->getVar('nama'),
+            'npm' => $this->request->getVar('npm'),
+            'id_kelas' => $this->request->getVar('kelas'),
+            'foto'  => $foto
+        ];
+    
+        $result = $this->userModel->updateUser($id, $data);
+    
+        if (!$result) {
+            return redirect()->back()->withInput()->with('error', 'Gagal Menyimpan Data');
+        }
+    
+        return redirect()->to('/user');
+    }
+    public function destroy($id)
+    {
+        $result = $this->userModel->deleteUser($id);
+        if (!$result) {
+            return redirect()->back()->with('Error', 'Gagal menghapus Data');
+        }
+        return redirect()->to(base_url('/user'))->with('success', 'Berhasil menghapus data');
     }
     public function store()
     {
